@@ -37,7 +37,7 @@ const PROJECTS = [
   {
     num: '05',
     tag: { mn: 'Вэбсайт', en: 'Website' },
-    title: { mn: ['NOVA MIND', 'Acadем'], en: ['NOVA MIND', 'Academy'] },
+    title: { mn: ['NOVA MIND', 'Acadемy'], en: ['NOVA MIND', 'Academy'] },
     description: {
       mn: 'Боловсролын төвийн вэбсайт — хөтөлбөрийн каталог, бүртгэл, хоёр хэлний интерфэйс.',
       en: 'Education center website — program catalog, registration, and bilingual interface.',
@@ -327,10 +327,8 @@ export default function WorkSection({ active, sectionRef }: WorkSectionProps) {
                 <div key={`${rep}-${n}`} className="tech-icon-card">
                   <div className="tech-glow" style={{ background: `radial-gradient(ellipse 80% 55% at 50% -5%, ${p.accent}2e 0%, transparent 68%)` }} />
                   <div className="tech-icon-img-wrap">
-                    <img src={`/icon/icon${n}.png`} alt={label} style={{ width: 32, height: 32, objectFit: 'contain', display: 'block' }} />
+                    <img src={`/icon/icon${n}.png`} alt={label} style={{ width: 52, height: 52, objectFit: 'contain', display: 'block' }} />
                   </div>
-                  <div className="tech-icon-divider" style={{ background: `linear-gradient(90deg, transparent, ${p.accent}50, transparent)` }} />
-                  <span className="tech-icon-label" style={{ color: `${p.accent}cc` }}>{label}</span>
                 </div>
               ))
             )}
