@@ -217,7 +217,7 @@ export default function ContactSection({ active, sectionRef }: ContactSectionPro
 
               <a
                 href={`tel:${contactPhone.replace(/\s/g, '')}`}
-                className="mt-auto w-full py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider text-center cursor-pointer border-0 transition-opacity duration-250 hover:opacity-90 no-underline"
+                className="mt-auto w-full py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider text-center cursor-pointer border-0 transition-opacity duration-[250ms] hover:opacity-90 no-underline"
                 style={{ background: 'linear-gradient(135deg,#6f63ff,#ff4fd8)', color: '#fff', boxShadow: '0 8px 28px rgba(111,99,255,0.3)', display: 'block' }}
               >
                 {mn ? 'Залгах →' : 'Call →'}
@@ -234,7 +234,7 @@ export default function ContactSection({ active, sectionRef }: ContactSectionPro
                     key={s.label}
                     href={s.href}
                     className="flex flex-col items-center gap-1.5 py-3 rounded-xl cursor-pointer
-                               transition-all duration-250 hover:scale-105 group"
+                               transition-all duration-[250ms] hover:scale-105 group"
                     style={{ background: 'rgba(111,99,255,0.08)', border: '1px solid rgba(111,99,255,0.15)' }}
                   >
                     <span className="text-[13px] font-black text-pxwhite/60 group-hover:text-hot transition-colors">

@@ -230,7 +230,11 @@ export default function Orb({
 
     const resize = () => {
       if (!container) return
-      const dpr = window.devicePixelRatio || 1
+      // Cap supersampling: full devicePixelRatio (often 3x on phones) is wasted fill-rate
+      // on a soft, blurred decorative background — desktop is effectively unaffected since
+      // its DPR is rarely above 2, mobile gets a real GPU/battery saving.
+      const maxDpr = window.innerWidth < 768 ? 1.5 : 2
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr)
       const w = container.clientWidth
       const h = container.clientHeight
       renderer.setSize(w * dpr, h * dpr)
@@ -262,6 +266,7 @@ export default function Orb({
     let rafId: number
     const update = (t: number) => {
       rafId = requestAnimationFrame(update)
+      if (document.hidden) return  // backgrounded tab/app — skip rendering, keep the loop alive
       const dt = (t - lastTime) * 0.001
       lastTime = t
       program.uniforms.iTime.value = t * 0.001

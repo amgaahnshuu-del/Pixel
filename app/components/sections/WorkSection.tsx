@@ -100,8 +100,12 @@ function LeftContent({ p, activeIdx, totalCount, goTo, idxRef, mn }: LeftContent
         .to(el.querySelector('[data-anim="dots"]'),
           { opacity: 1, duration: 0.36 }, '-=0.2')
         .call(() => {
-          // No pointer hover capability — skip decorative hover listeners (idle showcase cycle still runs)
-          if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+          // No pointer hover capability (touch) — skip hover listeners AND the idle
+          // showcase cycle entirely. This LeftContent instance isn't gated by `active`
+          // (mobile mounts every section's content simultaneously), so an ungated idle
+          // timer here would run GSAP tweens forever even while the user is elsewhere.
+          const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+          if (canHover) {
             const hover = (sel: string, inV: object, outV: object) => {
               el.querySelectorAll<HTMLElement>(sel).forEach(elem => {
                 const onIn  = () => gsap.to(elem, { ...inV,  duration: 0.26, ease: 'power2.out',   overwrite: 'auto' })
@@ -120,6 +124,8 @@ function LeftContent({ p, activeIdx, totalCount, goTo, idxRef, mn }: LeftContent
             hover('[data-anim="tech"]',  { y: -6, scale: 1.12 },            { y: 0, scale: 1 })
             hover('[data-anim="stat"]',  { y: -5, scale: 1.06 },            { y: 0, scale: 1 })
           }
+
+          if (!canHover) return
 
           let cycle = 0
           idleTimer = setInterval(() => {
@@ -171,7 +177,7 @@ function LeftContent({ p, activeIdx, totalCount, goTo, idxRef, mn }: LeftContent
 
       <p
         data-anim="desc"
-        className="text-[clamp(14px,1.2vw,17px)] text-mute leading-[1.85] max-w-110"
+        className="text-[clamp(14px,1.2vw,17px)] text-mute leading-[1.85] max-w-[36rem]"
       >
         {mn ? p.description.mn : p.description.en}
       </p>

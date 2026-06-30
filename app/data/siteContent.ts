@@ -189,6 +189,7 @@ export const packagePlans: PackagePlan[] = [
   {
     name: 'Pixel Core',
     price: '',
+    featured: true,
     features: [
       { label: 'Календарчилсан төлөвлөгөө', value: '1' },
       { label: 'Зах зээлийн судалгаа',      value: '1' },

@@ -75,7 +75,7 @@ export default function NavDots({ cur, vizCur = cur, go }: NavDotsProps) {
               />
               {/* Label */}
               <span
-                className="text-[7.5px] font-bold uppercase tracking-[0.08em] transition-colors duration-250 leading-none"
+                className="text-[7.5px] font-bold uppercase tracking-[0.08em] transition-colors duration-[250ms] leading-none"
                 style={{ color: active ? '#ff4fd8' : 'rgba(184,194,221,0.3)' }}
               >
                 {names[i]}

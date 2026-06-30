@@ -51,8 +51,12 @@ export default function HeroSection({ active, ready, sectionRef }: HeroSectionPr
         .call(() => {
           if (!alive) return
 
-          // No pointer hover capability — skip decorative hover listeners (idle cycle still runs)
-          if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+          // No pointer hover capability (touch) — skip hover listeners AND the idle
+          // demo cycle entirely. The idle wave/tilt exists to hint "hover me" to mouse
+          // users; on touch it's pure GSAP workload for no UX benefit, and on mobile
+          // every section is mounted simultaneously so this matters more than on desktop.
+          const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+          if (canHover) {
             // Hover: chars bounce up individually
             chars.forEach(ch => {
               const onIn  = () => gsap.to(ch, { y: -8, scale: 1.12, duration: 0.2,  ease: 'power2.out',   overwrite: 'auto' })
@@ -77,6 +81,8 @@ export default function HeroSection({ active, ready, sectionRef }: HeroSectionPr
               )
             })
           }
+
+          if (!canHover) return
 
           // Idle: alternate between char wave and tilt every ~8 s
           let cycle = 0

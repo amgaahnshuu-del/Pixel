@@ -72,7 +72,7 @@ export default function LoadingScreen({ onDone }: LoadingScreenProps) {
       />
 
       {/* Logo3D — cameraZ=7 fills ~67% of the 220×220 canvas */}
-      <div className="relative z-10 w-55 h-55">
+      <div className="relative z-10 w-[clamp(180px,42vw,220px)] h-[clamp(180px,42vw,220px)]">
         <Logo3D cameraZ={7} />
       </div>
 

@@ -1,16 +1,23 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { Zap, Layers, Boxes, Rocket, Gem, Flame, Shield, Crown, type LucideIcon } from 'lucide-react'
 import { packagePlans } from '../../data/siteContent'
 import { useSectionAnim } from '../useSectionAnim'
 import TypewriterText from '../TypewriterText'
 import { useLang } from '../../context/LangContext'
 import { useBreakpoint } from '../../hooks/useBreakpoint'
+import PricingCard from './packages/PricingCard'
+import PricingToggle from './packages/PricingToggle'
+import InfoPanel from './packages/InfoPanel'
 
 interface PackagesSectionProps {
   active: boolean
   sectionRef: (el: HTMLElement | null) => void
 }
+
+// One icon per plan, purely decorative — order matches packagePlans.
+const PLAN_ICONS: LucideIcon[] = [Zap, Layers, Boxes, Rocket, Gem, Flame, Shield, Crown]
 
 export default function PackagesSection({ active, sectionRef }: PackagesSectionProps) {
   const innerRef = useSectionAnim(active)
@@ -80,151 +87,70 @@ export default function PackagesSection({ active, sectionRef }: PackagesSectionP
       ref={(el) => { sectionEl.current = el; sectionRef(el) }}
     >
 
-      {/* Glow orbs */}
+      {/* Glow orbs — unchanged */}
       <div className="glow-orb w-[500px] h-[500px] top-[-20%] left-[30%]"
         style={{ background: 'radial-gradient(circle, rgba(111,99,255,0.22) 0%, transparent 70%)' }} />
       <div className="glow-orb w-[300px] h-[300px] bottom-[0%] right-[10%]"
         style={{ background: 'radial-gradient(circle, rgba(255,79,216,0.15) 0%, transparent 70%)' }} />
+      {/* Very light grid texture for extra depth, additive only */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        style={{ backgroundImage: 'linear-gradient(rgba(111,99,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(111,99,255,1) 1px, transparent 1px)', backgroundSize: '42px 42px' }} />
 
       <div ref={innerRef} className="panel-inner h-full w-full flex flex-col max-w-[1440px] mx-auto
                       px-[clamp(28px,6vw,96px)] pt-20 md:pt-[clamp(72px,9vh,100px)] pb-8">
 
         {/* Header */}
-        <div className="text-center mb-4 mt-8">
-          <p data-anim className="text-[11px] font-bold tracking-[0.22em] uppercase text-hot mb-3">
+        <div className="text-center mb-2 mt-2">
+          <p data-anim className="text-[11px] font-bold tracking-[0.22em] uppercase text-hot mb-2">
             <TypewriterText text={mn ? '05 — Багц' : '05 — Packages'} active={active} speed={22} delay={150} />
           </p>
-          <h2 data-anim className="text-[clamp(30px,4vw,56px)] font-black uppercase pt-5 leading-[0.9] tracking-[-0.02em]">
+          <h2 data-anim className="text-[clamp(26px,3.4vw,48px)] font-black uppercase pt-2 leading-[0.9] tracking-[-0.02em]">
             <TypewriterText text={mn ? 'Багц, ' : 'Packages, '} active={active} speed={45} delay={380} />
             <span className="gradient-text">
               <TypewriterText text={mn ? 'Төлөвлөгөө' : 'Plans'} active={active} speed={52} delay={670} />
             </span>
           </h2>
+          <p data-anim className="text-[12px] md:text-[13px] text-mute/55 mt-1.5 max-w-100 mx-auto">
+            {mn ? 'Танд тохирсон төлөвлөгөөг сонгоорой' : 'Pick the plan that fits your brand'}
+          </p>
         </div>
 
-        {/* Page toggle — desktop only; mobile shows all cards at once */}
-        <div data-anim className="hidden md:flex justify-center gap-2 pt-5 mb-4">
-          {[0, 1].map(p => (
-            <button
-              key={p}
-              onClick={() => setPage(p)}
-              className="px-5 py-1.5 rounded-full text-[16px] font-bold uppercase tracking-wider cursor-pointer border-0 transition-all duration-200"
-              style={
-                page === p
-                  ? { background: 'linear-gradient(135deg,#6f63ff,#ff4fd8)', color: '#fff', boxShadow: '0 4px 16px rgba(111,99,255,0.35)' }
-                  : { background: 'rgba(111,99,255,0.1)', color: 'rgba(184,194,221,0.6)', border: '1px solid rgba(111,99,255,0.2)' }
-              }
-            >
-              {p === 0 ? (mn ? 'Багц - 1' : 'Package 1') : (mn ? 'Багц - 2' : 'Package 2')}
-            </button>
-          ))}
-        </div>
+        {/* Page toggle — floating segmented control, desktop only */}
+        <PricingToggle
+          page={page}
+          onChange={setPage}
+          labels={mn ? ['1', '2'] : ['Package 1', 'Package 2']}
+        />
 
         {/* Cards: swipeable carousel on small mobile, 2-up grid from 430px (tablet too), 4-col paginated on desktop */}
         <div
           ref={gridRef}
-          className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory no-scrollbar gap-3 pt-5
+          className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory no-scrollbar z-10 gap-3 pt-3
                     -mx-[clamp(28px,6vw,96px)] px-[clamp(28px,6vw,96px)]
                     xs:grid xs:grid-cols-2 xs:overflow-visible xs:snap-none xs:mx-0 xs:px-0
                     md:grid-cols-2 lg:grid-cols-4"
         >
           {plansToShow.map((plan, i) => {
             const globalIndex = indexOffset + i
-            const isFeatured = !!plan.featured
             return (
-              <div
+              <PricingCard
                 key={globalIndex}
-                data-anim
-                data-card
-                className="shrink-0 w-[78vw] snap-center xs:w-auto xs:shrink relative flex flex-col overflow-hidden rounded-xl cursor-default"
-                style={
-                  isFeatured
-                    ? {
-                        background: 'linear-gradient(180deg, rgba(111,99,255,0.18) 0%, rgba(18,24,44,0.52) 100%)',
-                        border: '1px solid rgba(111,99,255,0.5)',
-                        boxShadow: '0 0 40px rgba(111,99,255,0.25), 0 0 80px rgba(255,79,216,0.1)',
-                      }
-                    : {
-                        background: 'var(--color-glass)',
-                        border: '1px solid var(--color-line)',
-                        backdropFilter: 'blur(24px)',
-                      }
-                }
-              >
-                {/* Top gradient line */}
-                {isFeatured && (
-                  <div className="absolute top-0 left-0 right-0 h-px"
-                    style={{ background: 'linear-gradient(90deg,#6f63ff,#ff4fd8)' }} />
-                )}
-
-                <div className="p-4 flex flex-col h-full">
-                  {/* Featured badge — in-flow so it doesn't overlap plan name */}
-                  {isFeatured && (
-                    <div className="self-start text-[7px] font-black tracking-wider px-2 py-0.5 rounded-full mb-2"
-                      style={{ background: 'linear-gradient(90deg,#6f63ff,#ff4fd8)', color: '#fff' }}>
-                      {mn ? 'САНАЛ БОЛГОХ' : 'RECOMMENDED'}
-                    </div>
-                  )}
-                  {/* Name + Price */}
-                  <div className="mb-3 pb-3 border-b border-line/40">
-                    <div className="flex items-center justify-between mb-1">
-                      <p className="text-[13px] font-bold tracking-[0.14em] uppercase text-mute/60 truncate">
-                        {plan.name}
-                      </p>
-                      <span className="shrink-0 ml-2 text-[14px] font-mono tabular-nums"
-                        style={{ color: 'rgba(184,194,221,0.25)', letterSpacing: '0.08em' }}>
-                        {String(globalIndex + 1).padStart(2, '0')}
-                      </span>
-                    </div>
-                    <p
-                      className="text-[clamp(16px,1.6vw,22px)] font-black leading-none"
-                      style={isFeatured ? { background: 'linear-gradient(135deg,#6f63ff,#ff4fd8)', WebkitBackgroundClip: 'text', color: 'transparent' } : { color: '#f7f9ff' }}
-                    >
-                      {plan.price || <span className="text-mute/30 text-[13px]"></span>}
-                    </p>
-                  </div>
-
-                  {/* Features list */}
-                  <ul className="flex flex-col gap-1.5 flex-1" style={{ scrollbarWidth: 'none' }}>
-                    {plan.features.map((f, j) => {
-                      const included = f.value !== '—'
-                      return (
-                        <li key={j} className="flex items-center justify-between gap-1 text-[11px] md:text-[13px] lg:text-[15px]">
-                          <span className={`flex items-center gap-1.5 min-w-0 ${included ? 'text-mute/80' : 'text-mute/25'}`}>
-                            <span className="shrink-0 w-3 h-3 rounded-full flex items-center justify-center text-[7px]"
-                              style={{
-                                background: included
-                                  ? (isFeatured ? 'rgba(111,99,255,0.3)' : 'rgba(184,194,221,0.1)')
-                                  : 'rgba(184,194,221,0.05)',
-                                color: included
-                                  ? (isFeatured ? '#6f63ff' : '#b8c2dd')
-                                  : 'rgba(184,194,221,0.2)',
-                              }}>
-                              {included ? '✓' : '·'}
-                            </span>
-                            <span className="truncate">{f.label}</span>
-                          </span>
-                          <span
-                            className="shrink-0 font-bold text-[11px] md:text-[13px] lg:text-[15px] ml-1"
-                            style={{ color: included ? (isFeatured ? '#ff4fd8' : '#f7f9ff') : 'rgba(184,194,221,0.2)' }}
-                          >
-                            {f.value}
-                          </span>
-                        </li>
-                      )
-                    })}
-                  </ul>
-
-                  {/* CTA */}
-                  
-                </div>
-              </div>
+                plan={plan}
+                globalIndex={globalIndex}
+                Icon={PLAN_ICONS[globalIndex % PLAN_ICONS.length]}
+                badgeLabel={mn ? 'Хамгийн түгээмэл' : 'Most Popular'}
+              />
             )
           })}
         </div>
 
-        {/* Footer */}
-        <div className="mt-6 pt-4 border-t border-line/30 flex items-center justify-between">
+        {/* Premium info panel */}
+        <div className="mt-4">
+          <InfoPanel mn={mn} phone="7270 3873" />
+        </div>
+
+        {/* Footer — unchanged, matches the rest of the site's per-section marker */}
+        <div className="mt-4 pt-3 border-t border-line/30 flex items-center justify-between">
           <span className="section-num">05 / 06</span>
           <p className="text-[11px] text-mute/50 text-center">
             {mn ? 'Холбоо барих:' : 'Contact:'}{' '}
