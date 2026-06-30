@@ -132,7 +132,7 @@ function ThumbnailCell({ photo, index, active, onClick, variant, btnRef }: Thumb
           />
           {/* Hover brightening */}
           <div
-            className="absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-250"
+            className="absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-[250ms]"
             style={{ background: 'rgba(255,255,255,0.03)' }}
           />
         </>
@@ -193,7 +193,7 @@ export default function TeamSection({ active, sectionRef }: TeamSectionProps) {
 
       <div
         ref={innerRef}
-        className="panel-inner h-full w-full flex flex-col max-w-360 mx-auto
+        className="panel-inner h-full w-full flex flex-col max-w-[1440px] mx-auto
                    px-[clamp(28px,6vw,96px)] pt-20 md:pt-[clamp(72px,9vh,100px)] pb-8"
       >
 
@@ -265,7 +265,7 @@ export default function TeamSection({ active, sectionRef }: TeamSectionProps) {
               ))}
 
               {/* Decorative window chrome dots */}
-              <div className="absolute top-3.5 left-4 z-30 flex items-center gap-1.25 pointer-events-none">
+              <div className="absolute top-3.5 left-4 z-30 flex items-center gap-[5px] pointer-events-none">
                 <div style={{ width: 7, height: 7, borderRadius: '50%', background: 'rgba(255,79,216,0.65)', boxShadow: '0 0 8px rgba(255,79,216,0.55)' }} />
                 <div style={{ width: 7, height: 7, borderRadius: '50%', background: 'rgba(111,99,255,0.5)' }} />
                 <div style={{ width: 7, height: 7, borderRadius: '50%', background: 'rgba(255,255,255,0.18)' }} />
