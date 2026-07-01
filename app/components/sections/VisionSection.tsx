@@ -44,7 +44,7 @@ export default function VisionSection({ active, sectionRef }: VisionSectionProps
                       px-[clamp(28px,6vw,96px)] pt-20 md:pt-[clamp(80px,10vh,110px)] pb-8">
 
         {/* Header */}
-        <div className="mb-10 flex items-end justify-between">
+        <div className="mb-5 lg:mb-10 flex items-end justify-between">
           <div>
             <p data-anim className="text-[11px] font-bold tracking-[0.22em] uppercase text-hot mb-3">
               <TypewriterText text={mn ? '02 — Алсын Харааа · Үнэт Зүйл' : '02 — Vision · Values'} active={active} speed={22} delay={150} />
@@ -58,7 +58,7 @@ export default function VisionSection({ active, sectionRef }: VisionSectionProps
           </div>
 
           {/* Status pill */}
-          <div data-anim className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full"
+          <div data-anim className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full"
             style={{ background: 'rgba(111,99,255,0.1)', border: '1px solid rgba(111,99,255,0.25)' }}>
             <span className="w-2 h-2 rounded-full"
               style={{ background: '#6f63ff', boxShadow: '0 0 6px rgba(111,99,255,0.8)' }} />
@@ -68,8 +68,8 @@ export default function VisionSection({ active, sectionRef }: VisionSectionProps
           </div>
         </div>
 
-        {/* Body: 2-column on desktop, stacked through tablet */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 lg:flex-1 lg:min-h-0">
+        {/* Body: 2-column on desktop and tablet, stacked on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] lg:grid-cols-[1fr_360px] gap-5 lg:gap-6 md:flex-1 md:min-h-0">
 
           {/* ── Left: Vision card ── */}
           <div data-anim className="glass-card rounded-2xl p-5 md:p-8 flex flex-col relative overflow-hidden">

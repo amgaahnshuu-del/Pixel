@@ -354,11 +354,11 @@ export default function WorkSection({ active, sectionRef }: WorkSectionProps) {
         </div>
       </div>
 
-      <div className="panel-inner w-full flex flex-col lg:flex-row lg:h-full">
+      <div className="panel-inner w-full flex flex-col md:flex-row md:h-full">
 
         {/* ── LEFT: project info ── */}
         <div
-          className="shrink-0 flex flex-col lg:justify-center relative overflow-hidden w-full lg:w-[48%] lg:h-full"
+          className="shrink-0 flex flex-col md:justify-center relative overflow-hidden w-full md:w-[46%] md:h-full lg:w-[48%]"
           style={{ padding: 'clamp(28px,5vw,80px)', paddingTop: 'max(80px, clamp(28px,5vw,80px))' }}
         >
           <div
@@ -379,7 +379,7 @@ export default function WorkSection({ active, sectionRef }: WorkSectionProps) {
         {/* ── RIGHT: overlapping mockup cards ── */}
         <div
           ref={rightColRef}
-          className="w-full aspect-[16/10] lg:aspect-auto lg:flex-1 lg:h-full relative overflow-hidden"
+          className="w-full aspect-[16/10] md:aspect-auto md:flex-1 md:h-full lg:flex-1 relative overflow-hidden"
           style={{ overscrollBehavior: 'none', touchAction: 'none' }}
         >
           {PROJECTS.map((proj, i) => (

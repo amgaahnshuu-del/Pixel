@@ -82,8 +82,8 @@ export default function ContactSection({ active, sectionRef }: ContactSectionPro
           </h2>
         </div>
 
-        {/* Two-column body: stacked through tablet, splits at desktop */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 lg:flex-1 lg:min-h-0">
+        {/* Two-column body: stacked on mobile, splits at tablet and desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_310px] lg:grid-cols-[1fr_380px] gap-5 lg:gap-6 md:flex-1 md:min-h-0">
 
           {/* LEFT — location card */}
           <div data-anim className="glass-card rounded-2xl relative overflow-hidden flex flex-col">
