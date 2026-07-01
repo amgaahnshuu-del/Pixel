@@ -9,6 +9,7 @@ interface OrbProps {
   rotateOnHover?: boolean
   forceHoverState?: boolean
   backgroundColor?: string
+  className?: string
 }
 
 const vert = /* glsl */ `
@@ -199,6 +200,7 @@ export default function Orb({
   rotateOnHover = true,
   forceHoverState = false,
   backgroundColor = '#000000',
+  className,
 }: OrbProps) {
   const ctnRef = useRef<HTMLDivElement>(null)
 
@@ -297,6 +299,7 @@ export default function Orb({
   return (
     <div
       ref={ctnRef}
+      className={className}
       style={{ position: 'fixed', inset: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none' }}
     />
   )

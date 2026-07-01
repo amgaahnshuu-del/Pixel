@@ -392,3 +392,49 @@ h1, h2, h3, h4 { font-family: var(--font-heading); }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE  ≤ 768px
+   All rules are INSIDE this block. Desktop (> 768px) is untouched.
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Prevent horizontal scroll on every page */
+  html, body { overflow-x: hidden; }
+
+  /* ── WebGL Orb: hide on mobile — it overlaps text in scroll mode ── */
+  .site-orb { display: none; }
+
+  /* ── Glow orbs: keep them strictly behind content ── */
+  .glow-orb { z-index: 0; }
+  .panel-inner { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  /* Both CTA buttons: always full-width stacked column */
+  .hero-btns { flex-direction: column !important; gap: 10px; }
+  .hero-btns > * { width: 100% !important; box-sizing: border-box; }
+
+  /* ── TEAM / EXPERIENCE ── */
+  /* Hero photo card: stretch to full container width */
+  .team-hero-card { max-width: 100% !important; }
+
+  /* ── WORK / GYMHUB ── */
+  /* Mockup inner blocks: boost opacity so tinted rectangles are visible */
+  .mockup-block { opacity: 0.75; }
+  /* Ensure the content area fills the aspect-ratio parent properly */
+  .mockup-body { flex: 1; min-height: 0; }
+
+  /* ── PACKAGES ── */
+  /* InfoPanel: already grid-cols-2 on mobile — ensure text doesn't clip */
+  .info-panel-grid p { font-size: 11px; }
+
+  /* ── CONTACT ── */
+  /* Map area: cap height on mobile so it doesn't dominate the screen */
+  .contact-map { min-height: 160px !important; max-height: 200px !important; }
+}
+
+/* ── Very small phones (≤ 480px) ── */
+@media (max-width: 480px) {
+  /* Tighten section horizontal padding */
+  .panel-inner { padding-left: clamp(16px, 5vw, 28px); padding-right: clamp(16px, 5vw, 28px); }
+}

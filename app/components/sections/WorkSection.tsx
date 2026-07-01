@@ -402,16 +402,16 @@ export default function WorkSection({ active, sectionRef }: WorkSectionProps) {
                     <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
                     <div className="ml-3 flex-1 h-5 rounded-md" style={{ background: 'rgba(255,255,255,0.06)' }} />
                   </div>
-                  <div className="p-5 flex flex-col gap-3 h-full">
+                  <div className="mockup-body p-5 flex flex-col gap-3 h-full">
                     <div className="flex gap-3">
-                      <div className="rounded-xl flex-1 h-14" style={{ background: `${proj.accent}22` }} />
-                      <div className="rounded-xl flex-1 h-14" style={{ background: `${proj.accent}16` }} />
-                      <div className="rounded-xl flex-1 h-14" style={{ background: `${proj.accent}0c` }} />
+                      <div className="mockup-block rounded-xl flex-1 h-14" style={{ background: `${proj.accent}22` }} />
+                      <div className="mockup-block rounded-xl flex-1 h-14" style={{ background: `${proj.accent}16` }} />
+                      <div className="mockup-block rounded-xl flex-1 h-14" style={{ background: `${proj.accent}0c` }} />
                     </div>
-                    <div className="rounded-xl flex-1" style={{ background: `${proj.accent}10` }} />
+                    <div className="mockup-block rounded-xl flex-1" style={{ background: `${proj.accent}10` }} />
                     <div className="flex gap-3">
-                      <div className="rounded-xl h-8 flex-1" style={{ background: `${proj.accent}18` }} />
-                      <div className="rounded-xl h-8 w-24" style={{ background: `linear-gradient(90deg,${proj.accent}99,${proj.accent}55)` }} />
+                      <div className="mockup-block rounded-xl h-8 flex-1" style={{ background: `${proj.accent}18` }} />
+                      <div className="mockup-block rounded-xl h-8 w-24" style={{ background: `linear-gradient(90deg,${proj.accent}99,${proj.accent}55)` }} />
                     </div>
                   </div>
                 </div>

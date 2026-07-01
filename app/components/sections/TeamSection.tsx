@@ -233,7 +233,7 @@ export default function TeamSection({ active, sectionRef }: TeamSectionProps) {
               the poster. height fills the zone; width is auto-derived.
             */}
             <div
-              className="relative overflow-hidden w-full lg:w-auto lg:h-full"
+              className="team-hero-card relative overflow-hidden w-full lg:w-auto lg:h-full"
               style={{
                 aspectRatio: '1/1',
                 maxWidth: 'min(90vw, 520px)',

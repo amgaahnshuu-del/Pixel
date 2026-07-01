@@ -165,7 +165,7 @@ export default function Page() {
     <>
       {!loadingDone && <LoadingScreen onDone={() => setLoadingDone(true)} />}
 
-      <Orb hue={0} hoverIntensity={0.3} rotateOnHover backgroundColor="#000000" />
+      <Orb hue={0} hoverIntensity={0.3} rotateOnHover backgroundColor="#000000" className="site-orb" />
 
       {/* Vignette */}
       <div className="fixed inset-0 z-[1] pointer-events-none [background:radial-gradient(120%_90%_at_78%_18%,transparent_30%,rgba(0,0,0,0.8)_100%)]" />

@@ -112,7 +112,7 @@ export default function ContactSection({ active, sectionRef }: ContactSectionPro
                 </p>
               </div>
 
-              <div className="flex-1 relative min-h-40 rounded-xl overflow-hidden">
+              <div className="contact-map flex-1 relative min-h-40 rounded-xl overflow-hidden">
                 <img
                   src="/map-location.jpg"
                   alt={mn ? 'Байршил' : 'Location'}
